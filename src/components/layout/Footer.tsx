@@ -12,10 +12,7 @@ const Footer = () => {
           {/* About Section */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <span className="font-serif text-2xl font-bold text-niraa-600">Niraa</span>
-              <span className="ml-1 text-sm font-medium text-spice-600">
-                Dryfruits & Spices
-              </span>
+              <span className="font-serif text-2xl font-bold text-niraa-600">Niraa Dryfruits & Spices</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               Premium quality dry fruits and authentic spices sourced directly from farms.
