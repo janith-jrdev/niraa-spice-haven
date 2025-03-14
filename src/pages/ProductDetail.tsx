@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -27,6 +26,7 @@ const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState("");
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Find the product
   const product = products.find(p => p.id === id);
@@ -79,6 +79,19 @@ const ProductDetail = () => {
     toast.success(`${product.name} added to wishlist`);
   };
 
+  const getStatusBadgeStyle = (status: string) => {
+    switch (status) {
+      case 'bestseller':
+        return 'bg-spice-500';
+      case 'low_stock':
+        return 'bg-rose-500';
+      case 'out_of_stock':
+        return 'bg-gray-500';
+      default:
+        return 'bg-niraa-500';
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -113,47 +126,72 @@ const ProductDetail = () => {
             </BreadcrumbList>
           </Breadcrumb>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Product Image */}
-            <div className="rounded-xl overflow-hidden border bg-white">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Product Images */}
+            <div className="space-y-4">
+              {/* Main Image */}
+              <div className="aspect-square rounded-xl overflow-hidden border bg-white">
+                <img
+                  src={product.images[selectedImageIndex]}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Thumbnail Images */}
+              <div className="grid grid-cols-4 gap-4">
+                {product.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className={`aspect-square rounded-lg overflow-hidden border ${
+                      selectedImageIndex === index ? 'ring-2 ring-niraa-600' : ''
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${product.name} - Image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Product Info */}
             <div className="space-y-6">
               <div>
-                {/* Badges */}
-                {product.badges && product.badges.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {product.badges.map((badge, index) => (
+                {/* Status Badge */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <Badge className={getStatusBadgeStyle(product.status)}>
+                    {product.status === 'bestseller' && 'Bestseller'}
+                    {product.status === 'low_stock' && 'Low Stock'}
+                    {product.status === 'out_of_stock' && 'Out of Stock'}
+                  </Badge>
+                  {product.badges && product.badges.map((badge, index) => (
+                    badge !== product.status && (
                       <Badge 
                         key={index} 
                         className={
-                          badge === "Bestseller" 
-                            ? "bg-spice-500" 
-                            : badge === "Limited Stock" 
-                            ? "bg-rose-500" 
-                            : badge === "Wholesale Only" 
-                            ? "bg-blue-500" 
+                          badge === "Organic" 
+                            ? "bg-green-500" 
+                            : badge === "Premium" 
+                            ? "bg-purple-500" 
                             : "bg-niraa-500"
                         }
                       >
                         {badge}
                       </Badge>
-                    ))}
-                  </div>
-                )}
+                    )
+                  ))}
+                </div>
 
                 <h1 className="font-serif text-3xl md:text-4xl font-bold">{product.name}</h1>
                 <p className="text-sm text-muted-foreground mt-2 capitalize">Category: {product.category}</p>
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 {currentSalePrice && currentSalePrice < currentPrice ? (
                   <>
                     <span className="text-3xl font-bold text-niraa-600">
@@ -240,7 +278,7 @@ const ProductDetail = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 pt-4">
+              <div className="flex gap-4">
                 <Button 
                   size="lg" 
                   className="flex-1 bg-niraa-600 hover:bg-niraa-700"

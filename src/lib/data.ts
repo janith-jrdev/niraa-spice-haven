@@ -1,4 +1,3 @@
-
 export type Product = {
   id: string;
   name: string;
@@ -6,7 +5,9 @@ export type Product = {
   category: 'dryfruits' | 'spices' | 'wholesale';
   price: number;
   salePrice?: number;
-  image: string;
+  images: string[];  // Array of image URLs
+  mainImage: string; // Main display image
+  status: 'in_stock' | 'low_stock' | 'out_of_stock' | 'bestseller';
   badges?: string[];
   stock: number;
   variants?: {
@@ -57,7 +58,13 @@ export const products: Product[] = [
     category: "dryfruits",
     price: 899,
     salePrice: 699,
-    image: "https://images.unsplash.com/photo-1604599886859-5bf659667821?q=80&w=2680&auto=format&fit=crop",
+    mainImage: "https://images.unsplash.com/photo-1604599886859-5bf659667821?q=80&w=2680&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1604599886859-5bf659667821?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590165482129-1b8b27698780?q=80&w=2680&auto=format&fit=crop"
+    ],
+    status: "bestseller",
     badges: ["Bestseller", "Organic"],
     stock: 50,
     variants: [
@@ -73,7 +80,13 @@ export const products: Product[] = [
     description: "Authentic Kashmiri saffron known for its distinct aroma and flavor.",
     category: "spices",
     price: 1499,
-    image: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2680&auto=format&fit=crop",
+    mainImage: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2680&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1607553558570-8e696718e425?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1607553558559-2dcef84f2c71?q=80&w=2680&auto=format&fit=crop"
+    ],
+    status: "low_stock",
     badges: ["Limited Stock", "Premium"],
     stock: 10,
     variants: [
@@ -90,7 +103,13 @@ export const products: Product[] = [
     category: "dryfruits",
     price: 1299,
     salePrice: 999,
-    image: "https://images.unsplash.com/photo-1638722275748-b40c83ce0792?q=80&w=2680&auto=format&fit=crop",
+    mainImage: "https://images.unsplash.com/photo-1638722275748-b40c83ce0792?q=80&w=2680&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1638722275748-b40c83ce0792?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590165482129-1b8b27698780?q=80&w=2680&auto=format&fit=crop"
+    ],
+    status: "bestseller",
     badges: ["Bestseller", "Gift Pack"],
     stock: 30,
     variants: [
@@ -106,7 +125,13 @@ export const products: Product[] = [
     description: "Traditional Indian spice blend, perfect for curries and rice dishes.",
     category: "spices",
     price: 299,
-    image: "https://images.unsplash.com/photo-1596040033229-a9821ebd0196?q=80&w=2680&auto=format&fit=crop",
+    mainImage: "https://images.unsplash.com/photo-1596040033229-a9821ebd0196?q=80&w=2680&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd0196?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590165482129-1b8b27698780?q=80&w=2680&auto=format&fit=crop"
+    ],
+    status: "fresh",
     badges: ["Homemade", "Fresh"],
     stock: 45,
     variants: [
@@ -122,7 +147,13 @@ export const products: Product[] = [
     description: "Crunchy, flavorful pistachios sourced directly from Iranian farms.",
     category: "dryfruits",
     price: 1299,
-    image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=2680&auto=format&fit=crop",
+    mainImage: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=2680&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590165482129-1b8b27698780?q=80&w=2680&auto=format&fit=crop"
+    ],
+    status: "premium",
     badges: ["Premium", "Imported"],
     stock: 20,
     variants: [
@@ -139,7 +170,13 @@ export const products: Product[] = [
     category: "wholesale",
     price: 4999,
     salePrice: 3999,
-    image: "https://images.unsplash.com/photo-1574204382731-d8e24f118db9?q=80&w=2640&auto=format&fit=crop",
+    mainImage: "https://images.unsplash.com/photo-1574204382731-d8e24f118db9?q=80&w=2640&auto=format&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1574204382731-d8e24f118db9?q=80&w=2640&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=2680&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590165482129-1b8b27698780?q=80&w=2680&auto=format&fit=crop"
+    ],
+    status: "wholesale_only",
     badges: ["Wholesale Only", "Bulk Deal"],
     stock: 100,
     variants: [

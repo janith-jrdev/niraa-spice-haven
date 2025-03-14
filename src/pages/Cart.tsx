@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
@@ -127,7 +126,7 @@ const Cart = () => {
                             {/* Image */}
                             <div className="w-20 h-20 rounded overflow-hidden border">
                               <img
-                                src={product.image}
+                                src={product.mainImage}
                                 alt={product.name}
                                 className="w-full h-full object-cover"
                               />
